@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>finance</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="bg">
+<div class="container">
+    <div class="title__wrap">
+        <h1>Финансовая математика</h1>
+    </div>
+    <div class="tabs">
+        <ul class="nav-tabs">
+            <li class="active"><a href="#tab-1">Потребительский кредит</a></li>
+            <li class=""><a href="#tab-2">Дифференциальная схема</a></li>
+            <li class=""><a href="#tab-3">Аннуитентные платежи</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div id="tab-1" class="tab-pane active">
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="usr">Сумма</label>
+                        <input type="text" class="form-control" id="summa">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="usr">Ставка</label>
+                        <input type="text" class="form-control" id="procent">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="usr">Срок</label>
+                        <input type="text" class="form-control" id="period">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="usr">Сумма долга к концу срока</label>
+                        <input readonly type="text" class="form-control" id="res">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="usr">Ежемесячная плата</label>
+                        <input readonly type="text" class="form-control" id="mes">
+                    </div>
+                </div>
+                    <div class="row">
+                    <div class="form-group col-sm-12 form-btn">
+                    <button type="submit" class="btn" onclick="Call()">Рассчет</button>
+                    </div>
+                </div>
+
+        </div>
+        <div id="tab-2" class="tab-pane">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="usr">Сумма</label>
+                    <input type="text" class="form-control" id="summa1">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="usr">Ставка</label>
+                    <input type="text" class="form-control" id="procent1">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="usr">Срок</label>
+                    <input type="text" class="form-control" id="period1">
+                </div>
+                <div class="table" id="text">
+
+                </div>
+                <div class="form-group col-sm-12">
+                    <button type="submit" class="btn" onclick="differenc()">Рассчет</button>
+                </div>
+        </div>
+        </div>
+        <div id="tab-3" class="tab-pane">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="usr">Сумма</label>
+                    <input type="text" class="form-control" id="summa2">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="usr">Ставка</label>
+                    <input type="text" class="form-control" id="procent2">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="usr">Срок</label>
+                    <input type="text" class="form-control" id="period2">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="usr">Платеж</label>
+                    <input readonly type="text" class="form-control" id="plat">
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <button type="submit" class="btn" onclick="annuet()">Рассчет</button>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    window.addEventListener("load", function() {
+        // store tabs variable
+        var myTabs = document.querySelectorAll("ul.nav-tabs > li");
+        function myTabClicks(tabClickEvent) {
+            for (var i = 0; i < myTabs.length; i++) {
+                myTabs[i].classList.remove("active");
+            }
+            var clickedTab = tabClickEvent.currentTarget;
+            clickedTab.classList.add("active");
+            tabClickEvent.preventDefault();
+            var myContentPanes = document.querySelectorAll(".tab-pane");
+            for (i = 0; i < myContentPanes.length; i++) {
+                myContentPanes[i].classList.remove("active");
+            }
+            var anchorReference = tabClickEvent.target;
+            var activePaneId = anchorReference.getAttribute("href");
+            var activePane = document.querySelector(activePaneId);
+            activePane.classList.add("active");
+        }
+        for (i = 0; i < myTabs.length; i++) {
+            myTabs[i].addEventListener("click", myTabClicks)
+        }
+    });
+    window.addEventListener("load", function() {
+        // store tabs variable
+        var myTabs = document.querySelectorAll("ul.nav-tabs > li");
+        function myTabClicks(tabClickEvent) {
+            for (var i = 0; i < myTabs.length; i++) {
+                myTabs[i].classList.remove("active");
+            }
+            var clickedTab = tabClickEvent.currentTarget;
+            clickedTab.classList.add("active");
+            tabClickEvent.preventDefault();
+            var myContentPanes = document.querySelectorAll(".tab-pane");
+            for (i = 0; i < myContentPanes.length; i++) {
+                myContentPanes[i].classList.remove("active");
+            }
+            var anchorReference = tabClickEvent.target;
+            var activePaneId = anchorReference.getAttribute("href");
+            var activePane = document.querySelector(activePaneId);
+            activePane.classList.add("active");
+        }
+        for (i = 0; i < myTabs.length; i++) {
+            myTabs[i].addEventListener("click", myTabClicks)
+        }
+    });
+
+</script>
+<script>
+    require('./render.js');
+
+    function Call() {
+        let p = document.getElementById('summa').value;
+        let i = document.getElementById('procent').value;
+        let n = document.getElementById('period').value;
+        let s = p*(1 + n*i);
+        let mp = s/(n*12);
+        document.getElementById('res').value = s;
+        document.getElementById('mes').value = mp;
+    }
+    function differenc(arr) {
+        let p = document.getElementById('summa1').value;
+        let i = document.getElementById('procent1').value;
+        let n = document.getElementById('period1').value;
+
+        let b = p/n;
+        for (let c = 0; c < n; c++) {
+            let pi = (p - b);
+            p = pi;
+            let x = [b + (p * (i / 12))];
+            let mes = ['месяц ' + (c + 1)];
+            // arr.push(x);
+            let arr = [...mes, ...x];
+            console.log(arr);
+
+        }
+
+
+
+
+
+    }
+    function annuet() {
+        let p = document.getElementById('summa2').value;
+        let i = document.getElementById('procent2').value;
+        let n = document.getElementById('period2').value;
+        let im = i/12;
+        let r = p*im/(1 - Math.pow(((1+im)), -n));
+        document.getElementById('plat').value = r;
+
+    }
+</script>
+</body>
+</html>
